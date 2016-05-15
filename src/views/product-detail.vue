@@ -1,84 +1,45 @@
 <template>
   <div>
-    <swiper :list="list" height="210px"></swiper>
-    <group-title style="font-size:18px;color:#333;line-height:18px;">微相集智能云存储</group-title>
-    <div style="margin:0 15px;font-size:12px;color:#b2b2b2;">
-      {{info}}
-    </div>
-    <group-title style="font-family:Arial;font-size:18px;color:#22bb5e;line-height:18px;">&yen 599</group-title>
-    <group-title style="margin-top:15px;font-size:12px;color:#b2b2b2;">选择分类</group-title>
-    <div style="margin:0 15px;">
- 
-    </div>
-    <sticky class="ui-box">
-      <div class="price">
-        <span>共1件 总计：</span><strong>899</strong><span>元</span>
+    <div class="panel-bg">
+      <swiper :list="list" height="210px" ></swiper>
+      <group-title class="product-title">微相集智能云存储</group-title>
+      <div class="product-info m-lr-15">
+        {{info}}
       </div>
-      <div class="btn">
-        <a class="ui-button" href="/1/#/order/checkout?address_type=common">
-          <span>去结算</span>
-        </a>
+      <group-title class="product-price">&yen {{price}}</group-title>
+      <group-title class="product-cell">选择分类</group-title>
+      <div class="m-lr-15">
+        <span :class="{'product-categray':true,'on':index===active}" v-for="(index,item) in categorylist" @click="active=index">{{item.txt}}</span>
       </div>
-    </sticky>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+      <group-title class="product-cell">购买数量</group-title>
+      <div class="m-lr-15 pd-b-15 clearfix">
+        <x-number :min=1 :max=10 :value=1 :fillable=true @on-change="change"></x-number>
+      </div>
+    </div>
+    <div class="panel-bg mt-10">
+      <group-title class="product-cell">产品介绍</group-title>
+      <div class="m-lr-15">
+        微相集智能云存储微相集智能云存储微相集智能云存储微相集智能云存储微相集智能云存储
+        微相集智能云存储微相集智能云存储微相集智能云存储微相集智能云存储微相集智能云存储
+        微相集智能云存储微相集智能云存储微相集智能云存储微相集智能云存储
+        微相集智能云存储微相集智能云存储微相集智能云存储
+        微相集智能云存储微相集智能云存储微相集智能云存储微相集智能云存储
+        微相集智能云存储微相集智能云存储微相集智能云存储
+      </div>        
+    </div>
+    <sticky class="ui-box" direction="bottom">
+        <div class="ui-price">
+          <span>共{{count}}件 总计：</span><strong class="total-price">{{totalPrice}}</strong><span>元</span>
+        </div>
+        <div class="ui-btn">
+          <x-button type="primary" class="no-border-radius" @click="goPay">立即购买</x-button>
+        </div>
+      </sticky> 
   </div>
 </template>
 
 <script>
-import { Swiper, GroupTitle, SwiperItem, XButton, Divider, Sticky } from '../components/'
+import { Swiper, GroupTitle, XButton, Sticky, XNumber } from '../components/'
 
 const demoList =
 [{
@@ -88,136 +49,108 @@ const demoList =
 }, {
   img: 'http://7xqzw4.com2.z0.glb.qiniucdn.com/3.jpg'
 }]
+const categorylist =
+[{
+  id:1,
+  txt:'500G黑色机械硬盘',
+  price:599
+},
+{
+  id:2,
+  txt:'机械硬盘',
+  price:300
+},
+{
+  id:3,
+  txt:'500G硬盘',
+  price:466
+},
+{
+  id:4,
+  txt:'黑色硬盘',
+  price:399
+},
+{
+  id:5,
+  txt:'500G硬盘',
+  price:600
+}]
 
 export default {
   components: {
     Swiper,
-    SwiperItem,
     GroupTitle,
     XButton,
-    Divider,
-    Sticky
+    Sticky,
+    XNumber
   },
   ready () {    
   },
   methods: {
-    setData: function () {
-      this.list1 = demoList
-      this.disableLoadData = true
+    goPay: function(){
+      this.$route.router.go('/views/order-confirm')
+    },
+    change: function (val) {
+      this.count=val;
     }
   },
-  data: function () {
-    return {
+  data: () => ({
       list: demoList,
-      list1: [],
+      categorylist: categorylist,
       disableLoadData: false,
       imgList: [],
-      info:'您的家庭智能相集,智能备份整理,自动上传'
-    }
-  }
+      info:'您的家庭智能相集,智能备份整理,自动上传',
+      count:1,
+      active:0 
+  }),
+  computed: {
+        totalPrice:function(){
+          return this.count * this.price
+        },
+        price:function(){
+          return this.categorylist[this.active].price
+        }       
+      }
 }
 </script>
-
+<style>
+  @import '../assets/css/base.css'
+</style>
 <style scoped>
-.ui-box{
-  display: box;
-  display: -webkit-box;
-  box-align: center;
-  -webkit-box-align: center;
-  box-pack: center;
-  -webkit-box-pack: center;
-  border-top: 1px solid #f6f6f6;
-  background: #FFF;
-}
-.price{
-    font-size: .26rem;
-    color: #999;
-    -webkit-box-flex: 1;
-    box-flex: 1;
-    width: 140%;
+.product-categray{
+    font-size: 12px;
+    line-height: 12px;
+    color: #b3b3b3;
+    display: inline-block;
+    border: 1px solid #b3b3b3;
+    overflow: hidden;
     text-align: center;
+    padding: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
-.btn{
-    -webkit-box-flex: 1;
-    box-flex: 1;
-    width: 100%;
+.on{
+  color: #22bb5e;
+  border-color: #22bb5e;
 }
-.ui-button{
-      display: block;
-    -webkit-border-radius: .1rem;
-    -moz-border-radius: .1rem;
-    -ms-border-radius: .1rem;
-    -o-border-radius: .1rem;
-    border-radius: .1rem;
-    background-color: #22bb5e;
-    text-align: center;
-    height: 54px;
-    line-height: 54px;
+.product-title{
+  font-size:18px;
+  color:#333;
+  line-height:18px;
 }
-.ui-button span{
-  color: #fff;
+.product-info{
+  font-size:12px;
+  color:#b2b2b2;
 }
-.text-scroll {
-  border: 1px solid #ddd;
-  border-left: none;
-  border-right: none;
+.product-price{
+  font-family:Arial;
+  font-size:18px;
+  color:#22bb5e;
+  line-height:18px;
 }
-.text-scroll p{
-  font-size: 12px;
-  text-align: center;
-  line-height: 30px;
-}
-.black {
-  background-color: #000;
-}
-.title{
-  line-height: 100px;
-  text-align: center;
-  color: #fff;
-}
-
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-@-webkit-keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-.fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
-}
-
-.swiper-img img {
-  width: 100%;
-  display: block;
+.product-cell{
+  margin-top:15px;
+  font-size:12px;
+  color:#b2b2b2;
 }
 </style>

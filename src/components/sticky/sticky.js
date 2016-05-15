@@ -25,14 +25,15 @@ function isSupportSticky () {
   return isSupport
 }
 
-export default function (nav) {
+export default function (nav,direction) {
+  var domClassName = 'vux-sticky-'+direction
   if (gtIOS6() || isSupportSticky()) {
     // 大于等于iOS6版本使用sticky
-    nav.classList.add('vux-sticky')
+    nav.classList.add(domClassName)
   } else {
     var navOffsetY = nav.offsetTop
     window.addEventListener('scroll', function () {
-      window.scrollY >= navOffsetY ? nav.classList.add('vux-fixed') : nav.classList.remove('vux-fixed')
+      window.scrollY >= navOffsetY ? nav.classList.add(domClassName) : nav.classList.remove(domClassName)
     })
   }
 }

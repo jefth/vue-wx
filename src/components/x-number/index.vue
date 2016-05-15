@@ -1,17 +1,17 @@
 <template>
-  <div class="weui_cell">
+ <!--  <div class="weui_cell">
     <div class="weui_cell_bd weui_cell_primary">
       <p>{{title}}</p>
-    </div>
+    </div> -->
     <div class="weui_cell_ft" v-show="!readonly" style="font-size:0">
       <a @click="sub()" class="number-selector number-selector-sub needsclick":class="{'number-disabled':disabled_min}">-</a>
       <input v-model="value" class="number-input" :style="{width: width+'px'}" number :readonly="!fillable" pattern="[0-9]*"/>
       <a @click="add()" class="number-selector number-selector-plus needsclick" :class="{'number-disabled':disabled_max}">+</a>
     </div>
-    <div class="weui_cell_ft" v-else>
+    <!-- <div class="weui_cell_ft" v-else>
       {{value}}
     </div>
-  </div>
+  </div> -->
 </template>
 <script>
 export default {

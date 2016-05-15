@@ -66,6 +66,7 @@ import ScrollerSwiper from './demos/Scroller-swiper'
 import Qrcode from './demos/Qrcode'
 
 import ProductDetail from './views/product-detail'
+import OrderConfirm  from './views/order-confirm'
 
 export default function (router) {
   // router.map({
@@ -175,6 +176,9 @@ export default function (router) {
   },
   '/views/product-detail':{
     component: ProductDetail
+  },
+  '/views/order-confirm':{
+    component: OrderConfirm
   },
   '/demo/wechat': {
     component: Wechat
