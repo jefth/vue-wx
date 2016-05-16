@@ -13,11 +13,11 @@
       </div>
       <group-title class="product-cell">购买数量</group-title>
       <div class="m-lr-15 pd-b-15 clearfix">
-        <x-number :min=1 :max=10 :value=1 :fillable=true @on-change="chooseNumber"></x-number>
+        <x-number :min=1 :max=10 :value=count :fillable=true @on-change="chooseNumber"></x-number>
       </div>
     </div>
     <div class="panel-bg mt-10">
-      <group-title class="product-cell">产品介绍</group-title>
+      <group-title class="product-cell" :style="{marginTop:'10px'}">产品介绍</group-title>
       <div class="m-lr-15">
         {{product.detailInfo}}
       </div>        
@@ -56,7 +56,9 @@ export default {
       product: ({product}) => product.product,
       count: ({ product }) => product.count,
       checkedType:({product}) => product.checkedType,
-      price: ({product})   => product.product.types.find(type=>type.typeId===product.checkedType).price
+      price: ({product})   => {
+        return product.product.types&&product.product.types.find(type=>type.typeId===product.checkedType).price
+      }
     },
     actions: {
       getAllProducts,
@@ -75,7 +77,7 @@ export default {
         } ,
         imgList:function(){
           let index = this.checkedType;
-          return this.product.types.find(type=>type.typeId===index).imgs
+          return this.product.types&&this.product.types.find(type=>type.typeId===index).imgs
         }   
       }
 }

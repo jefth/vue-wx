@@ -20,6 +20,9 @@ export default {
     XButton,
     Cell
   },
+  ready(){
+    console.log(this.addressData)
+  },
   data () {
     return {
       title: '默认为北京',

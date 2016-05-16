@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="weui_cells_title" v-if="title" :style="{color:titleColor}" v-html="title"></div>
-    <div class="weui_cells" :class="{'no_group_title':!title}">
+    <div class="weui_cells" :class="{'no_group_title':!title}" :style=componentStyle>
       <slot></slot>
     </div>
   </div>
@@ -16,7 +16,14 @@ export default {
   },
   props: {
     title: String,
-    titleColor: String
+    titleColor: String,
+    componentStyle:{
+      type:Object,
+      required: false,
+      default:function(){
+        return {}
+      }
+    }
   }
 }
 </script>

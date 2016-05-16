@@ -17,18 +17,19 @@
 			</div>
 		</div>
 		<div class="panel-bg mt-10">
-			<group>
-		      <cell title="配送信息：请添加" is-link></cell>
+			<group v-if="!!!addressName" :component-style="cellStyle">
+		      <cell title="配送信息：请添加" is-link v-link="'./address-manage'"></cell>
 		    </group>
-		</div>
-		<div class="panel-bg mt-10">
-			<group>
+		    <group v-if="!!addressName" :component-style="cellStyle">
 		      <cell title="配送信息：" :inline-desc="addressName" is-link></cell>
 		    </group>
 		</div>
 		<div class="panel-bg mt-10">
+			
+		</div>
+		<div class="panel-bg mt-10">
 			<div class="m-lr-15">留言</div>
-			<x-textarea :max="200" placeholder="请填写详细信息"></x-textarea>
+			<x-textarea :max="200" :textarea-style="textareaStyle" placeholder="请填写详细信息"></x-textarea>
 		</div>
 		<sticky class="ui-box" direction="bottom">
         <div class="ui-price">
@@ -79,9 +80,6 @@
 	    height: 100%;
 	    vertical-align: middle;
 	}
-	.weui_textarea{
-		background-color: #f7f7f7;
-	}
 </style>
 <script>
 	import {XButton, Sticky, XNumber, Cell, Group, XTextarea} from '../components/'
@@ -96,7 +94,18 @@
 			XTextarea
 		},
 		ready(){
-			this.getMyAddress()
+			// this.getMyAddress()
+		},
+		data(){
+			return{
+				cellStyle:{
+					marginTop:0
+				},
+				textareaStyle:{
+					backgroundColor: '#f7f7f7',
+					height:'200px'
+				}
+			}
 		},
 		vuex:{
 			getters: {
@@ -116,12 +125,11 @@
 	          return this.count * this.price
 	        },
 	        imgList:function(){
-	          let index = this.checkedType;	     
-	          console.log(this.address)     
+	          let index = this.checkedType;	         
 	          return this.product.types.find(type=>type.typeId===index).imgs[0]
 	        },
-	        addressName:function(){
-	        	return '<p>'+this.address.name +this.address.phone+'</p><p>'+this.address.address1+this.address.address2+'</p>'
+	        addressName:function(){		
+	        	return this.address.name&&('<p>'+this.address.name +this.address.phone+'</p><p>'+this.address.address1+this.address.address2+'</p>')
 	        }
 		},
 		methods:{			

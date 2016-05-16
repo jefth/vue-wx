@@ -41,7 +41,10 @@ export default {
       type: Number,
       default: 30
     },
-    height: Number
+    textareaStyle: {
+      type: Object,
+      default: {}
+    }
   },
   watch: {
     value: function (newVal) {
@@ -54,13 +57,6 @@ export default {
   computed: {
     count: function () {
       return this.value.length
-    },
-    textareaStyle () {
-      if (this.height) {
-        return {
-          height: `${this.height}px`
-        }
-      }
     }
   }
 }

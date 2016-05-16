@@ -32,6 +32,7 @@ export default {
     inlineDesc: String
   },
   beforeCompile () {
+    console.log('beforeCompile')
     if (this.value.length && this.rawValue) {
       this.value = name2value(this.value, this.list).split(' ')
     }

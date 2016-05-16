@@ -67,6 +67,7 @@ import Qrcode from './demos/Qrcode'
 
 import ProductDetail from './views/product-detail'
 import OrderConfirm  from './views/order-confirm'
+import AddressManage  from './views/address-manage'
 
 export default function (router) {
   // router.map({
@@ -179,6 +180,10 @@ export default function (router) {
   },
   '/views/order-confirm':{
     component: OrderConfirm
+  },
+  '/views/address-manage':{
+    name:"addressManage",
+    component:AddressManage
   },
   '/demo/wechat': {
     component: Wechat
