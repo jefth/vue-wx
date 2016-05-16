@@ -3,14 +3,14 @@
 		<div class="panel-bg">			
 			<div class="weui_panel_bd">
 		      <div class="media_box" >
-		        <div class="media_hd" v-if="item.src">
-		          <img class="media_appmsg_thumb" :src="item.src" alt="">
+		        <div class="media_hd" v-if="imgList.img">
+		          <img class="media_appmsg_thumb" :src="imgList.img" alt="">
 		        </div>
 		        <div class="media_bd">
-		          <div class="product_desc">{{item.title}}</div>
+		          <div class="product_desc">{{product.title}}</div>
 		          <div class="product_price">售价：{{price}}</div>
 		          <div class="clearfix">
-			        <x-number :min=1 :max=10 :value="count" :fillable=true @on-change="change"></x-number>
+			        <x-number :min=1 :max=10 :value="count" :fillable=true @on-change="chooseNumber"></x-number>
 			      </div>
 		        </div>
 		      </div>
@@ -23,7 +23,7 @@
 		</div>
 		<div class="panel-bg mt-10">
 			<group>
-		      <cell title="配送信息：" inline-desc="<p>一粒蛋 13888888888</p><p>外域影月谷黑暗神庙</p>" is-link></cell>
+		      <cell title="配送信息：" :inline-desc="addressName" is-link></cell>
 		    </group>
 		</div>
 		<div class="panel-bg mt-10">
@@ -85,6 +85,7 @@
 </style>
 <script>
 	import {XButton, Sticky, XNumber, Cell, Group, XTextarea} from '../components/'
+	import {chooseNumber, getMyAddress} from '../vuex/actions'
 	export default{
 		components:{
 			XButton, 
@@ -94,27 +95,36 @@
 			Group,
 			XTextarea
 		},
-		ready(){},
-		data(){
-			return {
-				item:{
-					src:'http://7xqzw4.com2.z0.glb.qiniucdn.com/1.jpg',
-					title:'微相集智能云存枯井城葫芦塔顶塔顶塔顶博大上海市'
-				},
-				count:1,
-				price:600,
-				addrees:'<p>一粒蛋 13888888888</p><p>外域影月谷黑暗神庙</p>'
-			}
+		ready(){
+			this.getMyAddress()
 		},
+		vuex:{
+			getters: {
+		      product: ({product}) => product.product,
+		      count: ({ product }) => product.count,
+		      price: ({product})   => product.product.types.find(type=>type.typeId===product.checkedType).price,
+		      checkedType:({product}) => product.checkedType,
+		      address:({address})  => address.address
+		    },
+		    actions: {
+		      getMyAddress,
+		      chooseNumber,
+		    }
+		},		
 		computed:{
 			totalPrice:function(){
 	          return this.count * this.price
-	        }  
+	        },
+	        imgList:function(){
+	          let index = this.checkedType;	     
+	          console.log(this.address)     
+	          return this.product.types.find(type=>type.typeId===index).imgs[0]
+	        },
+	        addressName:function(){
+	        	return '<p>'+this.address.name +this.address.phone+'</p><p>'+this.address.address1+this.address.address2+'</p>'
+	        }
 		},
-		methods:{
-			change: function (val) {
-		      this.count=val;
-		    },
+		methods:{			
 		    goPay:function(){
 		    	this.$route.router.go('/views/product-detail')
 		    }		     

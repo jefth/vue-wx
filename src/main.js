@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import { sync } from 'vuex-router-sync'
 import routerConfig from './router'
+import store from './vuex/store'
 import App from './App'
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
@@ -17,6 +19,7 @@ const router = new VueRouter({
 })
 
 routerConfig(router)
+sync(store, router)
 
 // Resource
 Vue.use(VueResource)
