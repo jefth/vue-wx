@@ -13,17 +13,12 @@ export default {
       default: false,
       twoWay: true
     },
-    hasFirstShow: {
-      type: Boolean,
-      default: false
-    },
     height: {
       type: String,
       default: 'auto'
     }
   },
   ready () {
-    console.log(this.show)
     var _this = this
     this.popup = new Popup({
       container: _this.$el,
@@ -36,9 +31,13 @@ export default {
       }
     })
   },
+  data () {
+    return {
+      hasFirstShow: false
+    }
+  },
   watch: {
     show: function (val) {
-      console.log('show')
       if (val) {
         this.popup.show()
         if (!this.hasFirstShow) {
@@ -46,7 +45,6 @@ export default {
           this.hasFirstShow = true
         }
       } else {
-        console.log('hide')
         this.popup.hide()
       }
     }

@@ -41,28 +41,27 @@
       </sticky>
 	</div>
 </template>
-<style scoped>
+<style  scoped>
 	.product_desc{
-		font-size: 14px;
-		line-height: 19px;
+		font-size: .875rem;
+		line-height: 1.1875rem;
 		color: #333333;
 	}
 	.product_price{
-		font-size: 12px;
-		margin-top: 5px;
-		margin-bottom: 10px;
+		font-size: .75rem;
+		margin-top: .3125rem;
+		margin-bottom: .625rem;
 		color: #b2b2b2;
 	}
 	.media_bd{
-		/*height: 100px;*/
 		-webkit-box-flex: 1;
     	box-flex: 1;
 	}
 	.media_hd{
-		width: 100px;
-		height: 100px;
-		margin-right: 15px;
-		line-height: 100px;
+		width: 6.25rem;
+		height: 6.25rem;
+		margin-right: .9375rem;
+		line-height: 6.25rem;
     	text-align: center;
 	}
 	.media_box{
@@ -72,7 +71,7 @@
 		    -webkit-box-align: center;
 		    box-pack: center;
 		    -webkit-box-pack: center;
-		padding: 10px 15px;
+		padding: .625rem .9375rem;
 		position: relative;
 	}
 	.media_appmsg_thumb{

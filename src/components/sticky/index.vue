@@ -8,7 +8,8 @@ export default {
   props: {
     direction:{
       type:String,
-      default:'bottom'
+      require:false,
+      default:'top'
     }
   },
   ready () {

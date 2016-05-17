@@ -21,7 +21,6 @@ export default {
     Cell
   },
   ready(){
-    console.log(this.addressData)
   },
   data () {
     return {

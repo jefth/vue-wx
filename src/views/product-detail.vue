@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="panel-bg">
-      <swiper :list="imgList" height="210px" ></swiper>
+      <swiper :list="imgList" height="13.125rem" ></swiper>
       <group-title class="product-title">{{product.title}}</group-title>
       <div class="product-info m-lr-15">
         {{product.description}}
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="panel-bg mt-10">
-      <group-title class="product-cell" :style="{marginTop:'10px'}">产品介绍</group-title>
+      <group-title class="product-cell" :style="{marginTop:'.625rem'}">产品介绍</group-title>
       <div class="m-lr-15">
         {{product.detailInfo}}
       </div>        
@@ -53,12 +53,10 @@ export default {
   },
   vuex: {
     getters: {
-      product: ({product}) => product.product,
-      count: ({ product }) => product.count,
+      product: ({product})    => product.product,
+      count: ({ product })    => product.count,
       checkedType:({product}) => product.checkedType,
-      price: ({product})   => {
-        return product.product.types&&product.product.types.find(type=>type.typeId===product.checkedType).price
-      }
+      price: ({product})      =>  product.product.types&&product.product.types.find(type=>type.typeId===product.checkedType).price
     },
     actions: {
       getAllProducts,
@@ -83,43 +81,43 @@ export default {
 }
 </script>
 <style>
-  @import '../assets/css/base.css'
+  @import '../assets/css/base.less'
 </style>
 <style scoped>
 .product-categray{
-    font-size: 12px;
-    line-height: 12px;
+    font-size: .75rem;
+    line-height: .75rem;
     color: #b3b3b3;
     display: inline-block;
     border: 1px solid #b3b3b3;
     overflow: hidden;
     text-align: center;
-    padding: 15px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    padding: .9375rem;
+    margin-right: .625rem;
+    margin-bottom: .625rem;
 }
 .on{
   color: #22bb5e;
   border-color: #22bb5e;
 }
 .product-title{
-  font-size:18px;
+  font-size:1.125rem;
   color:#333;
-  line-height:18px;
+  line-height:1.125rem;
 }
 .product-info{
-  font-size:12px;
+  font-size:.75rem;
   color:#b2b2b2;
 }
 .product-price{
   font-family:Arial;
-  font-size:18px;
+  font-size:1.125rem;
   color:#22bb5e;
-  line-height:18px;
+  line-height:1.125rem;
 }
 .product-cell{
-  margin-top:15px;
-  font-size:12px;
+  margin-top:.9375rem;
+  font-size:.75rem;
   color:#b2b2b2;
 }
 </style>
