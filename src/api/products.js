@@ -1,3 +1,4 @@
+import {ProductResource} from './resource'
 const _products = {
   id:1,
   title:'微相集智能云存储',
@@ -51,8 +52,8 @@ const _products = {
 }
 
 export default {
-  getProducts (cb) {
-    setTimeout(() => cb(_products), 100)
+  getProducts (data) {
+    return ProductResource.get({id:'getType'},data)
   },
 
   buyProducts (products, cb, errorCb) {

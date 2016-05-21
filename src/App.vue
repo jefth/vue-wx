@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view
-    transition
+    transition="fade"
     transition-mode="out-in"></router-view>
   </div>
 </template>

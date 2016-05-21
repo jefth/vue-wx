@@ -2,29 +2,29 @@
   <div>
     <div class="panel-bg">
       <swiper :list="imgList" height="13.125rem" ></swiper>
-      <group-title class="product-title">{{product.title}}</group-title>
+      <group-title class="product-title">{{product.Title}}</group-title>
       <div class="product-info m-lr-15">
-        {{product.description}}
+        {{product.Description}}
       </div>
-      <group-title class="product-price">&yen {{price}}</group-title>
+      <group-title class="product-price">&yen {{Price}}</group-title>
       <group-title class="product-cell">选择分类</group-title>
       <div class="m-lr-15">
-        <span :class="{'product-categray':true,'on':checkedType===item.typeId}" v-for="item in product.types" @click="chooseType(item.typeId)">{{item.title}}</span>
+        <span :class="{'product-categray':true,'on':checkedType===item.TypeId}" v-for="item in product.Types" @click="chooseType(item.TypeId)">{{item.Title}}</span>
       </div>
       <group-title class="product-cell">购买数量</group-title>
       <div class="m-lr-15 pd-b-15 clearfix">
-        <x-number :min=1 :max=10 :value=count :fillable=true @on-change="chooseNumber"></x-number>
+        <x-number :min=1 :max=10 :value=Count :fillable=true @on-change="chooseNumber"></x-number>
       </div>
     </div>
     <div class="panel-bg mt-10">
       <group-title class="product-cell" :style="{marginTop:'.625rem'}">产品介绍</group-title>
       <div class="m-lr-15">
-        {{product.detailInfo}}
+        {{product.DetailInfo}}
       </div>        
     </div>
     <sticky class="ui-box" direction="bottom">
         <div class="ui-price">
-          <span>共{{count}}件 总计：</span><strong class="total-price">{{totalPrice}}</strong><span>元</span>
+          <span>共{{Count}}件 总计：</span><strong class="total-price">{{totalPrice}}</strong><span>元</span>
         </div>
         <div class="ui-btn">
           <x-button type="primary" class="no-border-radius" @click="goPay">立即购买</x-button>
@@ -34,7 +34,13 @@
 </template>
 
 <script>
-import { Swiper, GroupTitle, XButton, Sticky, XNumber } from '../components/'
+// import { Swiper, GroupTitle, XButton, Sticky, XNumber } from '../components/'
+import Style from '../components/Style' 
+import Swiper from '../components/swiper'
+import GroupTitle from '../components/group-title'
+import XButton from '../components/x-button'
+import Sticky from '../components/sticky'
+import XNumber from '../components/x-number'
 import { getAllProducts, chooseNumber, chooseType } from '../vuex/actions'
 
 export default {
@@ -54,9 +60,9 @@ export default {
   vuex: {
     getters: {
       product: ({product})    => product.product,
-      count: ({ product })    => product.count,
+      Count: ({ product })    => product.count,
       checkedType:({product}) => product.checkedType,
-      price: ({product})      =>  product.product.types&&product.product.types.find(type=>type.typeId===product.checkedType).price
+      Price: ({product})      => product.product.Types.find(type=>type.TypeId===product.checkedType).Price
     },
     actions: {
       getAllProducts,
@@ -71,17 +77,18 @@ export default {
   },
   computed: {
         totalPrice:function(){
-          return this.count * this.price
+          console.log(this.count,this.Price)
+          return this.Count * this.Price
         } ,
         imgList:function(){
           let index = this.checkedType;
-          return this.product.types&&this.product.types.find(type=>type.typeId===index).imgs
+          return this.product.Types.find(type=>type.TypeId===index).Imgs
         }   
       }
 }
 </script>
 <style>
-  @import '../assets/css/base.less'
+  @import '../assets/css/base.css'
 </style>
 <style scoped>
 .product-categray{

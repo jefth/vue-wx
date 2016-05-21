@@ -40,6 +40,10 @@ body {
 .pd-t-15{
   padding-top: .9735rem;
 }
+.pd-lr-15{
+  padding-left:.9735rem;
+  padding-right:.9735rem;
+}
 .m-lr-15{
   margin-left:.9735rem;
   margin-right:.9735rem;
@@ -55,14 +59,15 @@ body {
 .total-price{
   font-size:1.125rem;
   color:#22bb5e;
+  font-weight: bold;
 }
 .no-border-radius{
-  border-radius: 0 ;
-  border: none ;
+  border-radius: 0 !important;
+  border: none !important;
 }
 .no-border-radius:after{
-  border-radius: 0 ;
-  border: none ;
+  border-radius: 0 !important;
+  border: none !important;
 }
 .ui-box{
   display: box;
@@ -88,7 +93,7 @@ body {
     width: 100%;
 }
 .ui-button{
-      display: block;
+    display: block;
     background-color: #22bb5e;
     text-align: center;
     height: 3.375rem;

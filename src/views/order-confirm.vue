@@ -7,10 +7,10 @@
 		          <img class="media_appmsg_thumb" :src="imgList.img" alt="">
 		        </div>
 		        <div class="media_bd">
-		          <div class="product_desc">{{product.title}}</div>
-		          <div class="product_price">售价：{{price}}</div>
+		          <div class="product_desc">{{product.Title}}</div>
+		          <div class="product_price">售价：{{Price}}</div>
 		          <div class="clearfix">
-			        <x-number :min=1 :max=10 :value="count" :fillable=true @on-change="chooseNumber"></x-number>
+			        <x-number :min=1 :max=10 :value="Count" :fillable=true @on-change="chooseNumber"></x-number>
 			      </div>
 		        </div>
 		      </div>
@@ -21,7 +21,7 @@
 		      <cell title="配送信息：请添加" is-link v-link="'./address-manage'"></cell>
 		    </group>
 		    <group v-if="!!addressName" :component-style="cellStyle">
-		      <cell title="配送信息：" :inline-desc="addressName" is-link></cell>
+		      <cell title="配送信息：" :inline-desc="addressName" is-link v-link="'./address-manage'"></cell>
 		    </group>
 		</div>
 		<div class="panel-bg mt-10">
@@ -29,11 +29,11 @@
 		</div>
 		<div class="panel-bg mt-10">
 			<div class="m-lr-15">留言</div>
-			<x-textarea :max="200" :textarea-style="textareaStyle" placeholder="请填写详细信息"></x-textarea>
+			<x-textarea :max="200" :textarea-style="textareaStyle" placeholder="请填写留言"></x-textarea>
 		</div>
 		<sticky class="ui-box" direction="bottom">
         <div class="ui-price">
-          <span>共{{count}}件 总计：</span><strong class="total-price">{{totalPrice}}</strong><span>元</span>
+          <span>共{{Count}}件 总计：</span><strong class="total-price">{{totalPrice}}</strong><span>元</span>
         </div>
         <div class="ui-btn">
           <x-button type="primary" class="no-border-radius" @click="goPay">去结算</x-button>
@@ -81,7 +81,13 @@
 	}
 </style>
 <script>
-	import {XButton, Sticky, XNumber, Cell, Group, XTextarea} from '../components/'
+	// import {XButton, Sticky, XNumber, Cell, Group, XTextarea} from '../components/'
+	import Cell from '../components/cell'
+	import Group from '../components/group'
+	import XButton from '../components/x-button'
+	import Sticky from '../components/sticky'
+	import XNumber from '../components/x-number'
+	import XTextarea from '../components/x-textarea'
 	import {chooseNumber, getMyAddress} from '../vuex/actions'
 	export default{
 		components:{
@@ -93,7 +99,7 @@
 			XTextarea
 		},
 		ready(){
-			// this.getMyAddress()
+			this.getMyAddress()
 		},
 		data(){
 			return{
@@ -109,8 +115,8 @@
 		vuex:{
 			getters: {
 		      product: ({product}) => product.product,
-		      count: ({ product }) => product.count,
-		      price: ({product})   => product.product.types.find(type=>type.typeId===product.checkedType).price,
+		      Count: ({ product }) => product.count,
+		      Price: ({product})   => product.product.Types.find(type=>type.TypeId===product.checkedType).Price,
 		      checkedType:({product}) => product.checkedType,
 		      address:({address})  => address.address
 		    },
@@ -121,19 +127,19 @@
 		},		
 		computed:{
 			totalPrice:function(){
-	          return this.count * this.price
+	          return this.Count * this.Price
 	        },
 	        imgList:function(){
 	          let index = this.checkedType;	         
-	          return this.product.types.find(type=>type.typeId===index).imgs[0]
+	          return this.product.Types.find(type=>type.TypeId===index).Imgs[0]
 	        },
 	        addressName:function(){		
-	        	return this.address.name&&('<p>'+this.address.name +this.address.phone+'</p><p>'+this.address.address1+this.address.address2+'</p>')
+	        	return this.address.name&&('<p>'+this.address.name +this.address.phone+'</p><p>'+this.address.address1+'</p><p>'+this.address.address2+'</p>')
 	        }
 		},
 		methods:{			
 		    goPay:function(){
-		    	this.$route.router.go('/views/product-detail')
+		    	this.$route.router.go('/views/pay-confirm')
 		    }		     
 		}
 	}

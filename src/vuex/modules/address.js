@@ -1,5 +1,6 @@
 import {
-  RECEIVE_ADDRESS
+  RECEIVE_ADDRESS,
+  SAVE_ADDRESS
 } from '../mutation-types'
 
 // initial state
@@ -11,6 +12,9 @@ const state = {
 const mutations = {
   [RECEIVE_ADDRESS] (state, myAddress) {
     state.address = myAddress
+  },
+  [SAVE_ADDRESS](state,address){
+  	state.address = address
   }
 }
 
